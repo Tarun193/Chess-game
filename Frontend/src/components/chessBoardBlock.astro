@@ -1,0 +1,9 @@
+---
+import { Image } from 'astro:assets';
+const {color, path} = Astro.props;
+const images = import.meta.glob('../assets/images/*.{jpeg,jpg,png,gif}');
+---
+
+<article class={`w-[90px] h-[90px] ${color ? "bg-teal-400": "bg-white"} grid place-content-center`}>
+    {path ? <Image class='hover:cursor-pointer' src={images[path] ? images[path]() : images["../assets/images/KB.png"]() } alt={"image"} /> : ""}
+</article>
