@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CHESS_BOARD } from "../game/board";
 import { makeMove } from "../game/move";
+import images from "../assets/images/images.js";
 
 const chessBoardBlock = ({
   color,
@@ -14,7 +15,6 @@ const chessBoardBlock = ({
   setChessBoard,
 }) => {
   const handleClick = (x, y, peice, target) => {
-    // console.log(peice);
     if (!peice.trim()) {
       if (selected) {
         const [old_x, old_y, old_peice] = selected.id.split(",");
@@ -22,13 +22,16 @@ const chessBoardBlock = ({
         CHESS_BOARD[Number(old_x)][Number(old_y)] = " ";
         makeMove(old_peice.trim(), x, y);
         setChessBoard(CHESS_BOARD);
+        target.style.backgroundColor = "";
+        selected.style.backgroundColor = "";
+        setSelected("");
       }
-    }
-    if (selected) {
+    } else if (selected) {
       selected.style.backgroundColor = "";
+    } else {
+      target.style.backgroundColor = "gold";
+      setSelected(target);
     }
-    target.style.backgroundColor = "gold";
-    setSelected(target);
   };
   return (
     <article
@@ -39,7 +42,11 @@ const chessBoardBlock = ({
       onClick={(e) => handleClick(x, y, peice, e.currentTarget)}
     >
       {path ? (
-        <img className="hover:cursor-pointer" src={path} alt={"image"} />
+        <img
+          className="hover:cursor-pointer"
+          src={images[path].src}
+          alt={"image"}
+        />
       ) : (
         ""
       )}

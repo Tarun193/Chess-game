@@ -1,12 +1,7 @@
-// ---
-// import ChessBoardBlock from "./chessBoardBlock.astro";
-// import {CHESS_BOARD} from "../game/board";
-// import { makeMove } from "../game/move";
-// ---
-
 import { useEffect, useState } from "react";
 import { CHESS_BOARD } from "../game/board";
 import ChessBoardBlock from "./chessBoardBlock.jsx";
+
 
 const ChessBoard = () => {
   const [chess_board, setChessBoard] = useState(CHESS_BOARD);
@@ -20,7 +15,7 @@ const ChessBoard = () => {
               <ChessBoardBlock
                 key={j}
                 color={(i + j) % 2}
-                path={peice !== " " ? `../assets/images/${peice}.png` : ""}
+                path={peice !== " " ? peice : ""}
                 x={i}
                 y={j}
                 peice={peice}
