@@ -18,9 +18,7 @@ const chessBoardBlock = ({
     if (!peice.trim()) {
       if (selected) {
         const [old_x, old_y, old_peice] = selected.id.split(",");
-        console.log(selected);
-        CHESS_BOARD[Number(old_x)][Number(old_y)] = " ";
-        makeMove(old_peice.trim(), x, y);
+        makeMove(old_peice.trim(), x, y, Number(old_x), Number(old_y));
         setChessBoard(CHESS_BOARD);
         target.style.backgroundColor = "";
         selected.style.backgroundColor = "";
