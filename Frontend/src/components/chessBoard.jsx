@@ -1,11 +1,47 @@
-import { useEffect, useState } from "react";
-import { CHESS_BOARD } from "../game/board";
+import { useState } from "react";
 import ChessBoardBlock from "./chessBoardBlock.jsx";
-
+import { Chess } from "chess.js";
 
 const ChessBoard = () => {
-  const [chess_board, setChessBoard] = useState(CHESS_BOARD);
+  const [game, setGame] = useState(new Chess());
+  const [chess_board, setChessBoard] = useState(game.board());
   const [selected, setSelected] = useState("");
+
+  const handleClick = (peice, target, x, y) => {
+    game
+      .moves({ square: selected.square })
+      .includes(String.fromCharCode(97 + y) + (8 - x));
+    if (
+      peice &&
+      selected &&
+      game
+        .moves({ square: selected.square })
+        .includes(String.fromCharCode(97 + y) + (8 - x))
+    ) {
+      console.log(selected.square);
+    } else if (peice) {
+      setSelected(peice);
+      console.log(peice);
+    } else {
+      const move =
+        (selected.type === "p" ? "" : selected.type.toUpperCase()) +
+        String.fromCharCode(97 + y) +
+        (8 - x);
+      console.log(
+        game.moves({ square: selected.square }),
+        selected.square,
+        game.board()
+      );
+      if (selected && game.moves({ square: selected.square }).includes(move)) {
+        game.move(move);
+        setGame(game);
+      } else {
+        console.log("invalid Move");
+      }
+    }
+    setChessBoard(game.board());
+  };
+
   return (
     <article className="ml-10 border-2 border-white w-fit my-2">
       {chess_board.map((row, i) => (
@@ -15,14 +51,11 @@ const ChessBoard = () => {
               <ChessBoardBlock
                 key={j}
                 color={(i + j) % 2}
-                path={peice !== " " ? peice : ""}
+                path={peice ? peice.color + peice.type : ""}
                 x={i}
                 y={j}
                 peice={peice}
-                selected={selected}
-                setSelected={setSelected}
-                setChessBoard={setChessBoard}
-                ID={`${i}, ${j}, ${peice}`}
+                handleClick={handleClick}
               />
             );
           })}

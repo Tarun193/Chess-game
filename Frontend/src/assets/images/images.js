@@ -12,18 +12,18 @@ import RW from "./RW.png";
 import BW from "./BW.png";
 
 const images = {
-  KB: KB,
-  QB: QB,
-  NB: NB,
-  BB: BB,
-  RB: RB,
-  PB: PB,
-  KW: KW,
-  QW: QW,
-  NW: NW,
-  BW: BW,
-  RW: RW,
-  PW: PW,
+  bk: KB,
+  bq: QB,
+  bn: NB,
+  bb: BB,
+  br: RB,
+  bp: PB,
+  wk: KW,
+  wq: QW,
+  wn: NW,
+  wb: BW,
+  wr: RW,
+  wp: PW,
 };
 
 export default images;
